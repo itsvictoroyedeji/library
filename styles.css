@@ -73,3 +73,30 @@ table {
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
+
+/* GENERAL STYLES */
+
+.container {
+  padding: 1em;
+}
+
+table {
+  width: 100%
+}
+th, td {
+  padding: 0.25rem;
+  text-align: left;
+  border: 1px solid #ccc;
+}
+
+thead th {
+ font-weight: bold;
+}
+tbody tr:nth-child(odd) {
+  background: #eee;
+}
+
+
+.form-section {
+  margin-bottom: 2em;
+}
