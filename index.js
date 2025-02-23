@@ -9,11 +9,56 @@ function Book(title, author, pages, read) {
   this.read = read
 };
 
+// Add Book status prototype to toggle later in rows
+Book.prototype.status = function() {
+  return this.read.toLowerCase() == "yes" ? "Mark as unread" : "Mark as read"
+}
+
 // Add Book To Library function
 function addBookToLibrary(title, author, pages, read) {
   // Create a book from arguments
   // Store book into the array
   myLibrary.push(new Book(title, author, pages, read));
+}
+
+// Add NEW BOOK button
+const newBookButton = document.querySelector('.new-book');
+newBookButton.addEventListener("click", addBookPopup);
+function addBookPopup(e) {
+};
+
+const submitNewBook = document.querySelector('.submit-new-book');
+submitNewBook.addEventListener("click", bookSubmit);
+
+// CREATE BOOK INSTANCE AFTER BUTTON SUBMIT
+function bookSubmit(e) {
+  e.preventDefault();
+  let title = document.querySelector('#book-title');
+  let author = document.querySelector('#book-author');
+  let pages = document.querySelector('#book-pages');
+  let read = document.querySelector('input[type="radio"]:checked');
+
+  if (
+    (title.value.length > 0) &&
+    (author.value.length > 0) &&
+    (pages.value.length > 0) &&
+    (read !== null)
+  ) {
+    addBookToLibrary(title.value, author.value, pages.value, read.value);
+  } else {
+    window.alert("All fields are required");
+    return false;
+  }
+
+  // RUN SUBMIT BOOK FUNCTION 
+  displayBook();
+
+  // Clear from input
+  title.value = '';
+  author.value = '';
+  pages.value = '';
+  read.checked = false;
+
 }
 
 // loop through array (forEach)
@@ -23,7 +68,7 @@ const tbody = document.querySelector('tbody');
 let headerRow = '';
 let bodyRow = '';
 
-
+// SUBMIT NEW BOOK TO MYLIBRARY OBJECT AND DISPLAY ON TABLE 
 function displayBook() {
   // Remove all rows (tr)
   if (!(headerRow === '') && !(bodyRow === '')) {
@@ -55,7 +100,7 @@ function displayBook() {
 
   // ROW DATA time...
   for (let i = 0 ; i < myLibrary.length ; i++) {
-    // Create each row (for the data)
+    // Create each ROW (for the data)
     bodyRow = document.createElement("tr");
 
     // initialize data variables for each row
@@ -64,7 +109,7 @@ function displayBook() {
 
     for (let j = 0 ; j < Object.values(myLibrary[i]).length ; j++) {
 
-      // add data for each row
+      // add DATA for each row
       newData = document.createElement('td');
       newText = document.createTextNode(Object.values(myLibrary[i])[j]);
 
@@ -88,57 +133,36 @@ function displayBook() {
     // Append to the row
     bodyRow.appendChild(deleteButton);
 
+    // Add Class to td element under "read" (to change later if need be) - The next 3 lines
+    readIndex = Object.keys(myLibrary[0]).indexOf('read');
+
+    let readIndexElement = bodyRow.querySelector(`td:nth-Child(${readIndex + 1})`);
+
+    readIndexElement.classList = "read-status";
+
+
+    // Add generate "read" status button
+    readOrUnread = myLibrary[i].status();
+
+    // Create "read" status text button
+    let readStatus = document.createElement('span');
+
+    // Add Class to text button
+    readStatus.classList = "read-or-unread";
+
+    // Add Text node and append
+    readStatus.appendChild(document.createTextNode(readOrUnread));
+
+    // Append read status to the row
+    bodyRow.appendChild(readStatus);
+
+
     // Add Data Position to Row (to delete later)
     bodyRow.setAttribute("data-position", i);
     
     // Append rows to tbody
     tbody.appendChild(bodyRow);
   }
-}
-
-// Add New Book button
-
-const newBookButton = document.querySelector('.new-book');
-newBookButton.addEventListener("click", addBookPopup);
-function addBookPopup(e) {
-};
-
-const submitNewBook = document.querySelector('.submit-new-book');
-submitNewBook.addEventListener("click", bookSubmit);
-
-
-function bookSubmit(e) {
-  e.preventDefault();
-  let title = document.querySelector('#book-title');
-  let author = document.querySelector('#book-author');
-  let pages = document.querySelector('#book-pages');
-  let read = document.querySelector('input[type="radio"]:checked');
-
-  if (
-    (title.value.length > 0) &&
-    (author.value.length > 0) &&
-    (pages.value.length > 0) &&
-    (read !== null)
-  ) {
-    addBookToLibrary(title.value, author.value, pages.value, read.value);
-  } else {
-    window.alert("All fields are required");
-    return false;
-  }
-
-  // console.log(title.value);
-  // console.log(author.value);
-  // console.log(pages.value);
-  // console.log(read);
-
-  displayBook();
-
-  // Clear from input
-  title.value = '';
-  author.value = '';
-  pages.value = '';
-  read.checked = false;
-
 }
 
 // DeleteItem Event Listener
@@ -148,7 +172,7 @@ function deleteItem(e) {
   // Get element for delete button in row
   if (e.target.classList.contains('delete-button')) {
 
-    // get index of array using data-attribute
+    // get value of row array via data-attribute
     let arr = e.target.parentElement.getAttribute("data-position");
   
     // Delete item from myLibrary object array
@@ -157,4 +181,46 @@ function deleteItem(e) {
     // The get the delete button's parent and remove it from the table list
     tbody.removeChild(e.target.parentElement);
   }
+}
+
+// Change Read Status
+let readOrUnread = '';
+
+// Get Index of 'read' (taken from end of displayBook() function)
+let readIndex = '';
+
+// Read Status Event Listener
+tbody.addEventListener('click', changeReadStatus);
+
+function changeReadStatus(e) {
+  
+  if (e.target.classList.contains('read-or-unread')) {
+
+    // find read status on object
+    let arr = e.target.parentElement.getAttribute("data-position");
+
+    if (myLibrary[arr].read == "Yes") {
+      // Change "read" status on object
+      myLibrary[arr].read = "No";
+
+      // Change read status text on display table (next 2 lines)
+      readOrUnread = myLibrary[arr].status();
+      e.target.textContent = readOrUnread;
+
+      // Change read data on table
+      e.target.parentElement.children[readIndex].textContent = "No";
+    } else {
+      // Change "read" status on object
+      myLibrary[arr].read = "Yes";
+
+      // Change read status text on display table (next 2 lines)
+      readOrUnread = myLibrary[arr].status();
+      e.target.textContent = readOrUnread;
+
+      // Change read data on table
+      e.target.parentElement.children[readIndex].textContent = "Yes";
+    }
+
+  }
+ 
 }
