@@ -220,7 +220,7 @@ function changeReadStatus(e) {
       // Change read data on table
       e.target.parentElement.children[readIndex].textContent = "Yes";
     }
-
+    
   }
  
 }
