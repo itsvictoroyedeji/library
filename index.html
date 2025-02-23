@@ -8,66 +8,70 @@
 </head>
 <body>
   <div class="container">
+    <header class="table-form-header">
+      <h1>Your Book Library</h1>
+      <p>Want to add to your book growing collection? <br>Add your book here.</p>
+    
+      <dialog id="main-dialog">
+        <div class="form-section">
+          <p class="">Add book details below!</p>
+          <form id="new_book_form">
+            <div class="book-form-title">
+              <label for="book-title">Title</label>
+              <input type="text" 
+                    id="book-title" 
+                    name="title" 
+                    maxlength="245" 
+                    autofocus
+                    required>
+            </div>
+            <div class="book-form-author">
+              <label for="book-author">Author</label>
+              <input type="text" 
+                    id="book-author" 
+                    name="author" 
+                    maxlength="245" 
+                    required>
+            </div>
+            <div class="book-form-pages">
+              <label for="book-pages">Number of pages</label>
+              <input type="number" 
+                    id="book-pages" 
+                    name="pages" 
+                    min="1" 
+                    max="5000" 
+                    step="1" 
+                    required>
+            </div>
+            <fieldset class="radio-book-read">
+              <legend>Did you read the entire book?</legend>
+              <input type="radio" 
+                    id="read-answer-1" 
+                    name="read" 
+                    value="Yes">
+              <label for="read-answer-1" class="radio-label">Yes</label>
+              <input type="radio" 
+                    id="read-answer-2" 
+                    name="read" 
+                    value="No">
+              <label for="read-answer-2" class="radio-label">No</label>
+            </fieldset>
+            <div class="book-form-button">
 
-    <dialog id="main-dialog">
-      <div class="form-section">
-        <p class="">Add book details below!</p>
-        <form id="new_book_form">
-          <div class="book-form-title">
-            <label for="book-title">Title</label>
-            <input type="text" 
-                   id="book-title" 
-                   name="title" 
-                   maxlength="245" 
-                   autofocus
-                   required>
-          </div>
-          <div class="book-form-author">
-            <label for="book-author">Author</label>
-            <input type="text" 
-                   id="book-author" 
-                   name="author" 
-                   maxlength="245" 
-                   required>
-          </div>
-          <div class="book-form-pages">
-            <label for="book-pages">Number of pages</label>
-            <input type="number" 
-                  id="book-pages" 
-                  name="pages" 
-                  min="1" 
-                  max="5000" 
-                  step="1" 
-                  required>
-          </div>
-          <fieldset class="radio-book-read">
-            <legend>Did you read the entire book?</legend>
-            <input type="radio" 
-                  id="read-answer-1" 
-                  name="read" 
-                  value="Yes">
-            <label for="read-answer-1" class="radio-label">Yes</label>
-            <input type="radio" 
-                  id="read-answer-2" 
-                  name="read" 
-                  value="No">
-            <label for="read-answer-2" class="radio-label">No</label>
-          </fieldset>
-          <div class="book-form-button">
+              <button class="button cancel-button" value="cancel" formmethod="dialog" formnovalidate>Cancel</button>
 
-            <button class="button cancel-button" value="cancel" formmethod="dialog" formnovalidate>Cancel</button>
+              <button type="submit" class="button submit-new-book">Add Book to Library</button>
 
-            <button type="submit" class="button submit-new-book">Add Book to Library</button>
-
-          </div>
-        </form>
-      </div>
-    </dialog>
-    <p>
-      <button id="showDialog" class="button new-book">
-        Add a New Book
-      </button>
-    </p>
+            </div>
+          </form>
+        </div>
+      </dialog>
+      <p>
+        <button id="showDialog" class="button new-book">
+          Add a New Book
+        </button>
+      </p>
+  </header>
     
    
     <table class="table">
