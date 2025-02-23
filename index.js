@@ -21,15 +21,25 @@ function addBookToLibrary(title, author, pages, read) {
   myLibrary.push(new Book(title, author, pages, read));
 }
 
-// Add NEW BOOK button
-const newBookButton = document.querySelector('.new-book');
-newBookButton.addEventListener("click", addBookPopup);
-function addBookPopup(e) {
-};
-
+// Add NEW BOOK button (POPUP DIALOG)
+const showButton = document.getElementById("showDialog");
+const mainDialog = document.getElementById("main-dialog");
+const cancelButton = document.querySelector(".cancel-button");
 const submitNewBook = document.querySelector('.submit-new-book');
-submitNewBook.addEventListener("click", bookSubmit);
 
+// "Add Book to library" button to open modal
+showButton.addEventListener("click", () => {
+  mainDialog.showModal();
+})
+
+// Cancel Modal Button
+cancelButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  mainDialog.close();
+})
+
+//Submit new book
+submitNewBook.addEventListener("click", bookSubmit);
 // CREATE BOOK INSTANCE AFTER BUTTON SUBMIT
 function bookSubmit(e) {
   e.preventDefault();
@@ -58,7 +68,9 @@ function bookSubmit(e) {
   author.value = '';
   pages.value = '';
   read.checked = false;
-
+  
+  // Close dialog
+  mainDialog.close();
 }
 
 // loop through array (forEach)
@@ -193,7 +205,6 @@ let readIndex = '';
 tbody.addEventListener('click', changeReadStatus);
 
 function changeReadStatus(e) {
-  
   if (e.target.classList.contains('read-or-unread')) {
 
     // find read status on object
@@ -220,7 +231,7 @@ function changeReadStatus(e) {
       // Change read data on table
       e.target.parentElement.children[readIndex].textContent = "Yes";
     }
-    
+
   }
  
 }
