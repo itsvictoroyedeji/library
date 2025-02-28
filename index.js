@@ -97,7 +97,17 @@ function displayBook() {
   // Add header and headerText values to both arrays
   for (let i = 0 ; i < keys.length ; i++) {
     header.push(document.createElement("th"));
-    headerText.push(document.createTextNode(keys[i]));
+  
+    // Add 1st letter capitalized version of value
+    headerText
+      .push(document
+        .createTextNode(keys[i]
+          .slice(0,1)
+          .toUpperCase()
+           + keys[i]
+           .slice(1)
+          )
+        );
   }
   // Add extra header for edit buttons
   header.push(document.createElement("th"));
