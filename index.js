@@ -73,8 +73,7 @@ function bookSubmit(e) {
   mainDialog.close();
 }
 
-// loop through array (forEach)
-// display each book on the page (on a table)
+// Declare global displayBook() values
 const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
 let headerRow = '';

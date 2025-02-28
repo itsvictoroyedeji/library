@@ -27,6 +27,17 @@ input, button, textarea, select {
   font: inherit;
   font-family: inherit;
   font-size: 100%;
+  max-width: 100%;
+  margin: 0;
+  vertical-align: baseline;
+}
+ 
+input {
+  outline: none;
+}
+
+:focus {
+  outline: 0;
 }
 
 /* 7. Avoid text overflows */
@@ -72,6 +83,7 @@ table {
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  height: 100%;
 }
 
 /* GENERAL STYLES */
@@ -79,21 +91,22 @@ body {
 .container {
   color: #3c3c3c;
   background-color: #EAEDF0;
-
+  width: max(300px, 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
 }
 
 .table-form-header {
   text-align: center;
   background-color: #F6F7F8;
-  border: 1px solid #D6D9DC;
+  border: 2px solid #D6D9DC;
   border-radius: 3px;
 
-  width: 80%;
+  width: clamp(300px, 80%, 600px);
   margin: 2.3em 0;
-  padding: 3.2em;
+  padding: 3.2em 1.5em;
 }
 
 .table-form-header h1 {
@@ -105,8 +118,135 @@ body {
   margin-top: 1em;
 }
 
-table {
-  width: 100%
+.table-form-header .button,
+.form-section .button {
+  --button-color: #5995da;
+  font-size: 1rem;
+  font-weight: bold;
+
+  color: #fff;
+  background-color: var(--button-color);
+
+  border: 2px solid var(--button-color);
+  border-radius: 3px;
+
+  padding: 0.6em 2.1em;
+  cursor: pointer;
+
+  transition: 0.2s ease-in-out;
+}
+
+.table-form-header .button:hover,
+.form-section .button:hover {
+  background-color: #76AEED;
+  border: 2px solid #76AEED;
+}
+
+.table-form-header .button:active,
+.form-section .button:active {
+  background-color: #407FC7;
+  border: 2px solid #407FC7;
+}
+
+/* Form Design */
+
+#main-dialog {
+  background-color: #F6F7F8;
+  border: 2px solid #abacad;
+  border-radius: 3px;
+  width: clamp(350px, 80%, 600px);
+  margin: 1em auto;
+  padding: 2.5em;
+  min-width: max-content;
+}
+
+#main-dialog p {
+  margin-bottom: 1.1em;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.form-row { /*All form rows except radio buttons */
+  margin-bottom: 1.5em;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.form-row input[type="text"],
+.form-row input[type="number"] {
+  background-color: #fff;
+  border: 1px solid #D6D9DC;
+  border-radius: 3px;
+  padding: 0.4em 0.6em;
+  font-size: 0.9rem;
+  width: 100%;
+  transition: 0.2s ease-in-out;
+}
+
+.form-row input[type="number"] {
+  width: 50%;
+}
+
+.form-row label {
+  margin-bottom: 0.3em;
+}
+
+.form-row input[type="text"]:focus:invalid,
+.form-row input[type="number"]:focus:invalid {
+  border: 1px solid #d55c5f;
+  background-color: #f7e0e1;
+  box-shadow: none; /* Remove red glow in firefox */
+}
+
+.legacy-form-row { /* Radio buttons styling */
+  border: none;
+  margin-bottom: 1.5em;
+  padding: 0;
+}
+
+.legacy-form-row legend {
+  margin-bottom: 0.5em;
+}
+
+.legacy-form-row .radio-label {
+  display: block;
+  font-size: 0.9rem;
+  padding: 0 1.1em 0 0.7em;
+}
+
+.legacy-form-row input[type="radio"] {
+  margin-top: 5px;
+}
+
+.legacy-form-row .radio-label,
+.legacy-form-row input[type="radio"] {
+  float: left;
+}
+
+.form-row.book-form-button {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.form-row .button:last-child {
+  color: #D55C5F;
+  border: 2px solid currentColor;
+  background: transparent;
+}
+
+.form-row .button:last-child:hover,
+.form-row .button:last-child:active {
+    background-color: #f1e0e0;
+}
+
+/* TABLE STYLES */
+
+#table {
+  width: 100%;
 }
 th, td {
   padding: 0.25rem;
@@ -121,7 +261,58 @@ tbody tr:nth-child(odd) {
   background: #eee;
 }
 
-
 .form-section {
   margin-bottom: 2em;
+}
+
+@media only screen and (min-width: 43.75em) {
+  .table-form-header,
+  #main-dialog {
+    width: 600px;
+  }
+  .form-row {
+    flex-direction: row;
+    align-items: flex-start; /* To Avoid stretching */
+    margin-bottom: 1.5em;
+  }
+  .form-row input[type="text"] {
+    width: 300px;
+    height: initial;
+  }
+
+  .form-row input[type="number"] {
+    width: 150px;
+    height: initial;
+  }
+  .form-row label {
+    text-align: right;
+    width: 120px;
+    margin-top: 0.5em;
+    padding-right: 1.2em;
+  }
+  .book-form-pages label {
+    margin-top: 0em;
+  }
+
+  .legacy-form-row {
+    margin-bottom: 1em;
+  }
+  .legacy-form-row legend {
+    width: 120px;
+    text-align: right;
+
+  }
+  .legacy-form-row legend {
+    float: left;
+    padding-right: 1.2em;
+  }
+
+  .form-row.book-form-button {
+    flex-direction: row;
+  }
+
+  .form-row .button:first-child {
+    margin-left: 120px;
+  }
+
 }
