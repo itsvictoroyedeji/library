@@ -99,6 +99,9 @@ function displayBook() {
     header.push(document.createElement("th"));
     headerText.push(document.createTextNode(keys[i]));
   }
+  // Add extra header for edit buttons
+  header.push(document.createElement("th"));
+  headerText.push(document.createTextNode(''));
 
   // Append header value to headerText value
   for (let i = 0 ; i < header.length ; i++) {
@@ -129,9 +132,10 @@ function displayBook() {
 
       // Append data cell (td) to row (tr)
       bodyRow.appendChild(newData);
-
     }
 
+    let dataButtons = document.createElement('td');
+    
     // Add new delete button
     let deleteButton = document.createElement('button');
       
@@ -142,7 +146,7 @@ function displayBook() {
     deleteButton.appendChild(document.createTextNode('X'));
 
     // Append to the row
-    bodyRow.appendChild(deleteButton);
+    dataButtons.appendChild(deleteButton);
 
     // Add Class to td element under "read" (to change later if need be) - The next 3 lines
     readIndex = Object.keys(myLibrary[0]).indexOf('read');
@@ -150,7 +154,6 @@ function displayBook() {
     let readIndexElement = bodyRow.querySelector(`td:nth-Child(${readIndex + 1})`);
 
     readIndexElement.classList = "read-status";
-
 
     // Add generate "read" status button
     readOrUnread = myLibrary[i].status();
@@ -165,8 +168,9 @@ function displayBook() {
     readStatus.appendChild(document.createTextNode(readOrUnread));
 
     // Append read status to the row
-    bodyRow.appendChild(readStatus);
+    dataButtons.appendChild(readStatus);
 
+    bodyRow.appendChild(dataButtons);
 
     // Add Data Position to Row (to delete later)
     bodyRow.setAttribute("data-position", i);
@@ -184,13 +188,13 @@ function deleteItem(e) {
   if (e.target.classList.contains('delete-button')) {
 
     // get value of row array via data-attribute
-    let arr = e.target.parentElement.getAttribute("data-position");
+    let arr = e.target.parentElement.parentElement.getAttribute("data-position");
   
     // Delete item from myLibrary object array
     myLibrary.splice(arr, 1);
 
-    // The get the delete button's parent and remove it from the table list
-    tbody.removeChild(e.target.parentElement);
+    // Then get the delete button's parent and remove it from the table list
+    tbody.removeChild(e.target.parentElement.parentElement);
   }
 }
 
@@ -207,7 +211,7 @@ function changeReadStatus(e) {
   if (e.target.classList.contains('read-or-unread')) {
 
     // find read status on object
-    let arr = e.target.parentElement.getAttribute("data-position");
+    let arr = e.target.parentElement.parentElement.getAttribute("data-position");
 
     if (myLibrary[arr].read == "Yes") {
       // Change "read" status on object
@@ -218,7 +222,7 @@ function changeReadStatus(e) {
       e.target.textContent = readOrUnread;
 
       // Change read data on table
-      e.target.parentElement.children[readIndex].textContent = "No";
+      e.target.parentElement.parentElement.children[readIndex].textContent = "No";
     } else {
       // Change "read" status on object
       myLibrary[arr].read = "Yes";
@@ -228,7 +232,7 @@ function changeReadStatus(e) {
       e.target.textContent = readOrUnread;
 
       // Change read data on table
-      e.target.parentElement.children[readIndex].textContent = "Yes";
+      e.target.parentElement.parentElement.children[readIndex].textContent = "Yes";
     }
 
   }
