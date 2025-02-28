@@ -269,25 +269,25 @@ tbody tr:nth-child(odd) {
   background: #eee;
 }
 
-tr td:last-child { /* center read status/delete buttons */
-  text-align: center;
+tr td:last-child { /* center read status/delete buttons (for mobile) */
+  text-align: left;
 }
 td .read-or-unread {
   margin-right: 2em;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
-}
-
-td .read-or-unread:hover {
-  text-decoration: underline;
+  display: block;
+  line-height: calc(1em + 0.5rem);
+  margin-bottom: 1em;
 }
 
 td [data-value="Mark as read"] {
   color: #008000;
 }
-td [data-value="Mark as unread"] {
-  color: #D55C5F;
+
+td [data-value="Mark as unread"]:hover {
+  color: #45ba45;
 }
 
 td .delete-button {
@@ -300,6 +300,7 @@ td .delete-button {
   cursor: pointer;
   font-weight: bold;
   transition: 0.1s ease-in-out;
+  float: right;
 }
 
 td .delete-button:hover {
@@ -359,4 +360,15 @@ td .delete-button:hover {
     margin-left: 120px;
   }
 
+  tr td:last-child { /* center read status/delete buttons */
+    text-align: center;
+  }
+
+  td .read-or-unread {
+    display: initial;
+  }
+
+  td .delete-button {
+    float: initial;
+  }
 }
