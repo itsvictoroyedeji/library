@@ -134,19 +134,8 @@ function displayBook() {
       bodyRow.appendChild(newData);
     }
 
+    // Add Extra "td" cell for Delete and "Mark As Read Buttons"
     let dataButtons = document.createElement('td');
-    
-    // Add new delete button
-    let deleteButton = document.createElement('button');
-      
-    // Add class to button
-    deleteButton.classList = "button delete-button";
-
-    // Add Text node and append
-    deleteButton.appendChild(document.createTextNode('X'));
-
-    // Append to the row
-    dataButtons.appendChild(deleteButton);
 
     // Add Class to td element under "read" (to change later if need be) - The next 3 lines
     readIndex = Object.keys(myLibrary[0]).indexOf('read');
@@ -164,12 +153,25 @@ function displayBook() {
     // Add Class to text button
     readStatus.classList = "read-or-unread";
 
-    // Add Text node and append
+    // Add Text node and append to element
     readStatus.appendChild(document.createTextNode(readOrUnread));
 
-    // Append read status to the row
+    // Append read status to "td"
     dataButtons.appendChild(readStatus);
 
+    // Add new delete button
+    let deleteButton = document.createElement('button');
+      
+    // Add class to button
+    deleteButton.classList = "button delete-button";
+
+    // Add Text node and append
+    deleteButton.appendChild(document.createTextNode('X'));
+
+    // Append delete button to "td"
+    dataButtons.appendChild(deleteButton);
+
+    // Append "td" (delete/read status) to the row "tr"
     bodyRow.appendChild(dataButtons);
 
     // Add Data Position to Row (to delete later)
