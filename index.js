@@ -166,6 +166,9 @@ function displayBook() {
     // Add Text node and append to element
     readStatus.appendChild(document.createTextNode(readOrUnread));
 
+    // Add "mark as read/unread" value attribute
+    readStatus.setAttribute("data-value", readStatus.textContent)
+
     // Append read status to "td"
     dataButtons.appendChild(readStatus);
 
@@ -231,7 +234,10 @@ function changeReadStatus(e) {
 
       // Change read status text on display table (next 2 lines)
       readOrUnread = myLibrary[arr].status();
+
       e.target.textContent = readOrUnread;
+
+      e.target.setAttribute("data-value", readOrUnread);
 
       // Change read data on table
       e.target.parentElement.parentElement.children[readIndex].textContent = "No";
@@ -241,7 +247,10 @@ function changeReadStatus(e) {
 
       // Change read status text on display table (next 2 lines)
       readOrUnread = myLibrary[arr].status();
+
       e.target.textContent = readOrUnread;
+
+      e.target.setAttribute("data-value", readOrUnread);
 
       // Change read data on table
       e.target.parentElement.parentElement.children[readIndex].textContent = "Yes";

@@ -278,6 +278,14 @@ td .read-or-unread {
 td .read-or-unread:hover {
   text-decoration: underline;
 }
+
+td [data-value="Mark as read"] {
+  color: #008000;
+}
+td [data-value="Mark as unread"] {
+  color: #D55C5F;
+}
+
 td .delete-button {
   --delete-button: #D55C5F;
   font-size: 0.6rem;
