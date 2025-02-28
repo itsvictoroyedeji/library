@@ -265,7 +265,35 @@ tbody tr:nth-child(odd) {
   background: #eee;
 }
 
+tr td:last-child { /* center read status/delete buttons */
+  text-align: center;
+}
+td .read-or-unread {
+  margin-right: 2em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
 
+td .read-or-unread:hover {
+  text-decoration: underline;
+}
+td .delete-button {
+  --delete-button: #D55C5F;
+  font-size: 0.6rem;
+  padding: 0 1em;
+  color: var(--delete-button);
+  border-radius: 3px;
+  border: 1px solid var(--delete-button);
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.1s ease-in-out;
+}
+
+td .delete-button:hover {
+  background-color: #D55C5F;
+  color: #fff;
+}
 
 
 
