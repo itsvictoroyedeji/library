@@ -266,7 +266,7 @@ thead th {
  font-weight: bold;
 }
 tbody tr:nth-child(odd) {
-  background: #eee;
+  background: #f6f7f8;
 }
 
 tr td:last-child { /* center read status/delete buttons (for mobile) */
