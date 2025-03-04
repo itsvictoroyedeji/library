@@ -274,21 +274,23 @@ tr td:last-child { /* center read status/delete buttons (for mobile) */
 }
 td .read-or-unread {
   margin-right: 2em;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
   display: block;
-  line-height: calc(1em + 0.5rem);
+  line-height: calc(1em + 0.3rem);
   margin-bottom: 1em;
 }
 
-td [data-value="Mark as read"] {
+td [data-value="Mark as read"],
+td [data-value="Mark as unread"]:active  {
   color: #008000;
 }
 
-td [data-value="Mark as unread"]:hover {
-  color: #45ba45;
+td [data-value="Mark as read"]:active {
+  color: inherit;
 }
+
 
 td .delete-button {
   --delete-button: #D55C5F;
@@ -300,15 +302,13 @@ td .delete-button {
   cursor: pointer;
   font-weight: bold;
   transition: 0.1s ease-in-out;
-  float: right;
+  float: left;
 }
 
 td .delete-button:hover {
   background-color: #D55C5F;
   color: #fff;
 }
-
-
 
 @media only screen and (min-width: 43.75em) {
   .table-form-header,

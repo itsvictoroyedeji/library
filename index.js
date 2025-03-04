@@ -1,17 +1,19 @@
 // All book objects
 const myLibrary = [];
 
-// Book Constructor
-function Book(title, author, pages, read) {
-  this.title = title,
-  this.author = author,
-  this.pages = pages,
-  this.read = read
-};
+// Book Class
 
-// Add Book status prototype to toggle later in rows
-Book.prototype.status = function() {
-  return this.read.toLowerCase() == "yes" ? "Mark as unread" : "Mark as read"
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+  
+  status() {
+    return this.read.toLowerCase() === "yes" ? "Mark as unread" : "Mark as read";
+  }
 }
 
 // Add Book To Library function
